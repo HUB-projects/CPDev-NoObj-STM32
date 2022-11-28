@@ -50,7 +50,6 @@ uint8_t recvBuffCopy[RECV_BUFF_SIZE];
 uint16_t recvBuffSize;
 uint32_t recvBuffTime;
 
-
 WM_BOOL out1;
 
 const unsigned char blinkInFlash[] =
@@ -72,6 +71,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 	// Check if UART2 trigger the Callback
 	if (huart->Instance == USART2)
 	{
+		//virtual machine stop before code change
 		WM_Stop();
 
 		//copy buffer
@@ -80,7 +80,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 		memset(recvBuffCopy + recvBuffSize, 0, RECV_BUFF_SIZE - recvBuffSize);
 		recvBuffTime = HAL_GetTick();
 
-		// Start to listening again - IMPORTANT!
+		//start to listening again
 		HAL_UARTEx_ReceiveToIdle_DMA(&huart2, recvBuffDMA, RECV_BUFF_SIZE);
 	}
 }
@@ -124,10 +124,15 @@ int main(void)
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 
-	task_cycle = 100;   //set time cycle
+	//set time cycle
+	task_cycle = 100;
+
+	//start to listening
 	HAL_UARTEx_ReceiveToIdle_DMA(&huart2, recvBuffDMA, RECV_BUFF_SIZE);
 
+	//load program from FLASH
 	//VMP_LoadProgramAndData(blinkInFlash, 60);
+	//init virutal machine
 	//WM_Initialize(WM_MODE_FIRST_START | WM_MODE_NORMAL);
 
 	/* USER CODE END 2 */
@@ -136,6 +141,7 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
+		//initialize the machine after 1 sec from receiving the last packet of data
 		if (recvBuffTime && (HAL_GetTick() - recvBuffTime) > 1000)
 		{
 			VMP_LoadProgramAndData(recvBuffCopy, recvBuffSize);
@@ -143,6 +149,7 @@ int main(void)
 			recvBuffTime = 0;
 		}
 
+		//if the machine is running, run a virtual machine cycle
 		if (bRunMode)
 		{
 			WM_GetData(0, 1, &out1);
