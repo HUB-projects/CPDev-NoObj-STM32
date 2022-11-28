@@ -1,0 +1,13 @@
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:26:24:GetProgramWord	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:56:25:GetProgramDWord	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:81:27:GetProgramAddress	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:188:24:getREAL	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:193:21:setREAL	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:198:25:getLREAL	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:203:21:setLREAL	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:208:23:getINT	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:213:21:setINT	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:218:24:getDINT	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:223:21:setDINT	16	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:228:24:getLINT	24	static
+../Core/Lib/CPDevVM/src/VM/vmfunc/vm_data_access.c:233:21:setLINT	24	static
